@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reise der Verlorenen | Memory-Spiel</title>
+  <meta
+    name="description"
+    content="Volldigitalisiertes Memory-Spiel zur St. Louis: Namenkarten und gekürzte Beschreibungskarten zu 30 Figuren aus Reise der Verlorenen."
+  />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero panel">
+      <div class="hero-copy">
+        <p class="eyebrow">Volldigitalisiertes Memory</p>
+        <h1>Reise der Verlorenen</h1>
+        <p class="lead">
+          Finde zu jeder <strong>Namenkarte</strong> die passende <strong>Beschreibungskarte</strong>.
+          Alle Beschreibungen sind auf Stichworte gekürzt, ohne den Sinn zu verfälschen.
+        </p>
+      </div>
+
+      <div class="hero-note">
+        <p class="eyebrow">Spielprinzip</p>
+        <p>
+          Das Deck verbindet Figuren aus dem Drama rund um die <em>St. Louis</em> mit ihren Rollen,
+          Handlungen und historischen Funktionen. Treffende Paare bleiben offen, bringen Punkte
+          und erscheinen rechts in der Trefferansicht.
+        </p>
+      </div>
+    </section>
+
+    <section class="setup-grid">
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Setup</p>
+            <h2>Partie vorbereiten</h2>
+          </div>
+          <p class="compact-copy">Solo oder lokal mit bis zu vier Spielenden.</p>
+        </div>
+
+        <div class="control-grid">
+          <label class="field">
+            <span>Spielende</span>
+            <select id="playerCount">
+              <option value="1">1</option>
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Kartenpaare</span>
+            <select id="pairCount">
+              <option value="6">6</option>
+              <option value="8">8</option>
+              <option value="10">10</option>
+              <option value="12" selected>12</option>
+              <option value="16">16</option>
+              <option value="20">20</option>
+              <option value="24">24</option>
+              <option value="30">30</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Themenbereich</span>
+            <select id="categorySelect"></select>
+          </label>
+        </div>
+
+        <div class="button-row">
+          <button id="startGameBtn" class="primary-btn" type="button">Neue Partie</button>
+          <button id="previewBtn" class="ghost-btn" type="button">8 Sekunden Lernblick</button>
+        </div>
+
+        <p id="setupHint" class="setup-hint">
+          Wähle einen Bereich oder mische alle Figuren der Inszenierung und des historischen Kontexts.
+        </p>
+      </section>
+
+      <section class="panel status-panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Status</p>
+            <h2>Spielübersicht</h2>
+          </div>
+          <p class="compact-copy">Treffer, Züge und Zeit laufen live mit.</p>
+        </div>
+
+        <div id="scoreboard" class="scoreboard"></div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-label">Gefundene Paare</span>
+            <strong id="pairsFoundStat">0 / 0</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Versuche</span>
+            <strong id="attemptStat">0</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Zeit</span>
+            <strong id="timerStat">00:00</strong>
+          </article>
+        </div>
+
+        <div id="statusBanner" class="status-banner">
+          Starte eine Partie, um das Kartenraster zu mischen.
+        </div>
+      </section>
+    </section>
+
+    <section class="content-grid">
+      <section class="panel board-panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Spielfeld</p>
+            <h2>Namen trifft Beschreibung</h2>
+          </div>
+          <p id="deckMeta" class="compact-copy">Noch keine Partie aktiv.</p>
+        </div>
+
+        <div id="board" class="board empty-board" aria-live="polite"></div>
+      </section>
+
+      <aside class="side-stack">
+        <section class="panel detail-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Zuletzt gefunden</p>
+              <h2>Trefferfenster</h2>
+            </div>
+          </div>
+          <div id="matchDetail" class="match-detail empty-detail">
+            Noch kein Paar gefunden.
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Kontext</p>
+              <h2>Deck-Hinweise</h2>
+            </div>
+          </div>
+          <div id="categoryGuide" class="guide-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Spielhilfe</p>
+              <h2>So funktioniert es</h2>
+            </div>
+          </div>
+          <div class="tips-list">
+            <p>Zwei Karten pro Zug aufdecken.</p>
+            <p>Ein gültiges Paar besteht immer aus <strong>Name</strong> und <strong>Beschreibung</strong>.</p>
+            <p>Bei einem Treffer bleibt derselbe Spielende am Zug.</p>
+            <p>Der Lernblick deckt alle Karten für acht Sekunden auf.</p>
+          </div>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script src="./cards.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
