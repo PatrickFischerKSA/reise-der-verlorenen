@@ -2,6 +2,15 @@
 
 Volldigitalisiertes Memory-Spiel zu Figuren aus dem Kontext der *St. Louis*. Jede Partie verbindet eine Namenkarte mit der passenden, auf Stichworte gekürzten Beschreibungskarte.
 
+Kurzbeschreibung:
+Volldigitales Memory-Spiel zu *Reise der Verlorenen* mit 30 Figurenpaaren und GitHub Pages.
+
+Website:
+https://patrickfischerksa.github.io/reise-der-verlorenen/
+
+Topics:
+`memory-game`, `educational-game`, `history-education`, `theater`, `st-louis`, `github-pages`, `javascript`, `html`, `css`, `deutsch`
+
 ## Inhalt
 
 - 30 Figurenpaare
