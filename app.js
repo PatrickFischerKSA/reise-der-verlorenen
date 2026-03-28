@@ -345,8 +345,9 @@
               type="button"
               data-zoom-uid="${escapeHtml(card.uid)}"
               aria-label="${escapeHtml(card.label)} vergrößern"
+              title="Vollständigen Kartentext anzeigen"
             >
-              Lupe
+              <span aria-hidden="true">+</span>
             </button>
           </article>
         `;

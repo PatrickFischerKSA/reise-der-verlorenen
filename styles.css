@@ -327,7 +327,14 @@ select {
   perspective: 1400px;
 }
 
+.memory-card.is-visible,
+.memory-card.is-matched {
+  z-index: 2;
+}
+
 .card-toggle {
+  position: relative;
+  z-index: 1;
   width: 100%;
   min-height: 174px;
   border: 0;
@@ -353,19 +360,35 @@ select {
 
 .zoom-trigger {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 3;
-  border: 1px solid rgba(18, 57, 70, 0.12);
+  top: 10px;
+  right: 10px;
+  z-index: 5;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(18, 57, 70, 0.18);
   border-radius: 999px;
-  padding: 7px 10px;
-  background: rgba(255, 251, 244, 0.96);
+  padding: 0;
+  background: rgba(255, 251, 244, 0.98);
   color: var(--sea-deep);
-  font-size: 0.78rem;
+  font-size: 1.35rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  box-shadow: 0 10px 20px rgba(19, 30, 38, 0.12);
+  line-height: 1;
+  box-shadow: 0 12px 28px rgba(19, 30, 38, 0.18);
+  transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+
+.zoom-trigger:hover {
+  transform: scale(1.06);
+  background: #ffffff;
+  box-shadow: 0 16px 28px rgba(19, 30, 38, 0.22);
+}
+
+.zoom-trigger span {
+  display: block;
+  transform: translateY(-1px);
 }
 
 .zoom-hidden {
