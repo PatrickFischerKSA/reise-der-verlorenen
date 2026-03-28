@@ -18,7 +18,13 @@
     deckMeta: document.getElementById("deckMeta"),
     board: document.getElementById("board"),
     matchDetail: document.getElementById("matchDetail"),
-    categoryGuide: document.getElementById("categoryGuide")
+    categoryGuide: document.getElementById("categoryGuide"),
+    zoomModal: document.getElementById("zoomModal"),
+    zoomType: document.getElementById("zoomType"),
+    zoomTitle: document.getElementById("zoomTitle"),
+    zoomMeta: document.getElementById("zoomMeta"),
+    zoomText: document.getElementById("zoomText"),
+    zoomCloseBtn: document.getElementById("zoomCloseBtn")
   };
 
   const state = {
@@ -35,7 +41,8 @@
     previewMode: false,
     startedAt: null,
     timerId: null,
-    lastMatch: null
+    lastMatch: null,
+    zoomCardUid: null
   };
 
   function shuffle(list) {
@@ -147,6 +154,29 @@
     elements.statusBanner.textContent = message;
   }
 
+  function openZoom(uid) {
+    const card = getCardByUid(uid);
+    if (!card || !isVisible(card)) {
+      return;
+    }
+
+    state.zoomCardUid = uid;
+    elements.zoomType.textContent = card.label;
+    elements.zoomTitle.textContent = card.title;
+    elements.zoomMeta.textContent = `${card.category} · Vollständige Kartenansicht`;
+    elements.zoomText.textContent = card.body;
+    elements.zoomModal.classList.remove("modal-hidden");
+    elements.zoomModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+  }
+
+  function closeZoom() {
+    state.zoomCardUid = null;
+    elements.zoomModal.classList.add("modal-hidden");
+    elements.zoomModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  }
+
   function formatDuration(milliseconds) {
     if (!milliseconds || milliseconds < 0) {
       return "00:00";
@@ -202,6 +232,7 @@
     state.boardLocked = false;
     state.previewMode = false;
     state.lastMatch = null;
+    closeZoom();
 
     updateSetupHint(requestedPairs, actualPairs, filteredPool.length);
     resetTimer();
@@ -285,25 +316,39 @@
           .join(" ");
 
         return `
-          <button
+          <article
             class="${classes}"
-            type="button"
-            data-uid="${escapeHtml(card.uid)}"
-            aria-label="${escapeHtml(card.label)}"
-            ${matched ? 'aria-pressed="true"' : 'aria-pressed="false"'}
+            data-visible="${visible ? "true" : "false"}"
+            data-matched="${matched ? "true" : "false"}"
           >
-            <span class="card-shell">
-              <span class="card-face card-front">
-                <span class="card-badge">${escapeHtml(card.label)}</span>
-                <strong>${card.faceType === "name" ? "?" : "..."}</strong>
+            <button
+              class="card-toggle"
+              type="button"
+              data-uid="${escapeHtml(card.uid)}"
+              aria-label="${escapeHtml(card.label)}"
+              aria-pressed="${matched ? "true" : "false"}"
+            >
+              <span class="card-shell">
+                <span class="card-face card-front">
+                  <span class="card-badge">${escapeHtml(card.label)}</span>
+                  <strong>${card.faceType === "name" ? "?" : "..."}</strong>
+                </span>
+                <span class="card-face card-back">
+                  <span class="card-badge">${escapeHtml(card.label)}</span>
+                  <span class="card-title">${escapeHtml(card.title)}</span>
+                  <span class="card-text">${escapeHtml(card.body)}</span>
+                </span>
               </span>
-              <span class="card-face card-back">
-                <span class="card-badge">${escapeHtml(card.label)}</span>
-                <span class="card-title">${escapeHtml(card.title)}</span>
-                <span class="card-text">${escapeHtml(card.body)}</span>
-              </span>
-            </span>
-          </button>
+            </button>
+            <button
+              class="zoom-trigger ${visible ? "" : "zoom-hidden"}"
+              type="button"
+              data-zoom-uid="${escapeHtml(card.uid)}"
+              aria-label="${escapeHtml(card.label)} vergrößern"
+            >
+              Lupe
+            </button>
+          </article>
         `;
       })
       .join("");
@@ -417,6 +462,7 @@
   function bindEvents() {
     elements.startGameBtn.addEventListener("click", startGame);
     elements.previewBtn.addEventListener("click", previewBoard);
+    elements.zoomCloseBtn.addEventListener("click", closeZoom);
     elements.categorySelect.addEventListener("change", () => {
       state.activeCategory = elements.categorySelect.value;
       updateSetupHint(Number(elements.pairCount.value), Number(elements.pairCount.value), getFilteredPool().length);
@@ -425,11 +471,27 @@
       updateSetupHint(Number(elements.pairCount.value), Number(elements.pairCount.value), getFilteredPool().length);
     });
     elements.board.addEventListener("click", (event) => {
+      const zoomButton = event.target.closest("[data-zoom-uid]");
+      if (zoomButton) {
+        openZoom(zoomButton.dataset.zoomUid);
+        return;
+      }
+
       const button = event.target.closest("[data-uid]");
       if (!button) {
         return;
       }
       handleCardClick(button.dataset.uid);
+    });
+    elements.zoomModal.addEventListener("click", (event) => {
+      if (event.target.closest("[data-close-zoom]")) {
+        closeZoom();
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !elements.zoomModal.classList.contains("modal-hidden")) {
+        closeZoom();
+      }
     });
   }
 

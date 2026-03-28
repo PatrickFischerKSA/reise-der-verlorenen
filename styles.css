@@ -35,6 +35,10 @@ body {
     linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -320,8 +324,17 @@ select {
   border: 0;
   padding: 0;
   background: transparent;
-  cursor: pointer;
   perspective: 1400px;
+}
+
+.card-toggle {
+  width: 100%;
+  min-height: 174px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  display: block;
 }
 
 .card-shell {
@@ -336,6 +349,28 @@ select {
 .memory-card.is-visible .card-shell,
 .memory-card.is-matched .card-shell {
   transform: rotateY(180deg);
+}
+
+.zoom-trigger {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  border: 1px solid rgba(18, 57, 70, 0.12);
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: rgba(255, 251, 244, 0.96);
+  color: var(--sea-deep);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 20px rgba(19, 30, 38, 0.12);
+}
+
+.zoom-hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .card-face {
@@ -420,6 +455,70 @@ select {
   gap: 12px;
 }
 
+.zoom-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.modal-hidden {
+  display: none;
+}
+
+.zoom-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 25, 31, 0.58);
+  backdrop-filter: blur(8px);
+}
+
+.zoom-dialog {
+  position: relative;
+  width: min(760px, calc(100vw - 24px));
+  max-height: min(82vh, 920px);
+  overflow: auto;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  background: rgba(249, 245, 236, 0.98);
+  box-shadow: 0 34px 90px rgba(15, 24, 29, 0.32);
+  padding: 24px;
+}
+
+.zoom-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.zoom-close {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.zoom-meta {
+  margin-bottom: 16px;
+  color: var(--muted);
+}
+
+.zoom-text {
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 18px;
+  font-size: 1rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
 @media (max-width: 1120px) {
   .hero,
   .setup-grid,
@@ -453,11 +552,16 @@ select {
   }
 
   .memory-card,
+  .card-toggle,
   .card-shell {
     min-height: 160px;
   }
 
   .card-text {
     -webkit-line-clamp: 7;
+  }
+
+  .zoom-dialog {
+    padding: 18px;
   }
 }

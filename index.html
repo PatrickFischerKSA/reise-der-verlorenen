@@ -163,11 +163,27 @@
             <p>Ein gültiges Paar besteht immer aus <strong>Name</strong> und <strong>Beschreibung</strong>.</p>
             <p>Bei einem Treffer bleibt derselbe Spielende am Zug.</p>
             <p>Der Lernblick deckt alle Karten für acht Sekunden auf.</p>
+            <p>Geöffnete Karten zeigen eine <strong>Lupe</strong> für die vollständige Ansicht.</p>
           </div>
         </section>
       </aside>
     </section>
   </main>
+
+  <div id="zoomModal" class="zoom-modal modal-hidden" aria-hidden="true">
+    <div class="zoom-backdrop" data-close-zoom="true"></div>
+    <section class="zoom-dialog" role="dialog" aria-modal="true" aria-labelledby="zoomTitle">
+      <div class="zoom-head">
+        <div>
+          <p id="zoomType" class="eyebrow">Kartendetail</p>
+          <h2 id="zoomTitle">Vollansicht</h2>
+        </div>
+        <button id="zoomCloseBtn" class="zoom-close" type="button" aria-label="Detailansicht schließen">Schließen</button>
+      </div>
+      <p id="zoomMeta" class="zoom-meta"></p>
+      <div id="zoomText" class="zoom-text"></div>
+    </section>
+  </div>
 
   <script src="./cards.js"></script>
   <script src="./app.js"></script>
