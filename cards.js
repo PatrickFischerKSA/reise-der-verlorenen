@@ -240,7 +240,7 @@ window.REISE_DER_VERLORENEN_LEVEL1_CARDS = [
   {
     id: "laredo-bru",
     prompt: "Laredo Bru",
-    response: "Präsident von Kuba; erhält laut Stück Tausende Telegramme gegen die Aufnahme der Flüchtlinge; mit Dekret 937 verbunden; machte historisch die Landungszertifikate ungültig.",
+    response: "Federico Laredo Brú; kubanischer Jurist und Präsident Kubas von 1936 bis 1940; untersagte 1939 der St. Louis das Anlegen in Havanna und begründete dies mit wirtschaftlichen Problemen und Arbeitslosigkeit.",
     category: "Kuba"
   },
   {
@@ -282,25 +282,25 @@ window.REISE_DER_VERLORENEN_LEVEL1_CARDS = [
   {
     id: "henry-morgenthau",
     prompt: "Henry Morgenthau",
-    response: "Finanzminister der USA; historisch Henry Morgenthau Jr.; 1934 bis 1945 im Amt; prägte die Zeit von Depression, Krieg und Bretton Woods.",
+    response: "Henry Morgenthau junior; US-amerikanischer Politiker; von 1934 bis 1945 Finanzminister der USA; Sohn von Henry Morgenthau senior.",
     category: "Historischer Rahmen"
   },
   {
     id: "cordell-hull",
     prompt: "Cordell Hull",
-    response: "Außenminister der USA; historisch von 1933 bis 1944 im Amt; gilt als am längsten amtierender US-Außenminister.",
+    response: "US-amerikanischer Jurist und Politiker; Außenminister der USA von 1933 bis 1944; erhielt 1945 für seine Mitwirkung an der Gründung der Vereinten Nationen den Friedensnobelpreis.",
     category: "Historischer Rahmen"
   },
   {
     id: "joseph-kennedy",
     prompt: "Joseph Kennedy",
-    response: "Amerikanischer Botschafter in Großbritannien; historisch Joseph Patrick Kennedy; 1938 bis 1940 im Amt.",
+    response: "Joseph Patrick 'Joe' Kennedy; US-Unternehmer und Diplomat; ab Ende 1937/1938 US-Botschafter in London; vertrat öffentlich eine Appeasement-Linie und geriet darüber in Konflikt mit Cordell Hull.",
     category: "Historischer Rahmen"
   },
   {
     id: "fulgencio-batista",
     prompt: "General Fulgencio Batista",
-    response: "Im Stück unerreichbar und abseits; historisch von 1933 bis 1944 die entscheidende politische Figur Kubas.",
+    response: "Kubanischer Politiker, Staatspräsident und Diktator; stieg nach dem Aufstand der Sergeanten 1933 zum starken Mann im Hintergrund auf und blieb in den späten 1930er Jahren die entscheidende Machtfigur Kubas.",
     category: "Historischer Rahmen"
   }
 ];
