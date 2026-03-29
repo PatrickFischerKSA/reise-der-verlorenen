@@ -3,7 +3,8 @@
   const levelDefinitions = meta.levels || [];
   const levelPools = {
     level1: window.REISE_DER_VERLORENEN_LEVEL1_CARDS || [],
-    level2: window.REISE_DER_VERLORENEN_LEVEL2_CARDS || []
+    level2: window.REISE_DER_VERLORENEN_LEVEL2_CARDS || [],
+    level3: window.REISE_DER_VERLORENEN_LEVEL3_CARDS || []
   };
   const playerLabels = ["Signal", "Kompass", "Hafen", "Transit"];
 

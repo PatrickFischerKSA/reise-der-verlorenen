@@ -1,6 +1,6 @@
 window.REISE_DER_VERLORENEN_META = {
   title: "Reise der Verlorenen",
-  subtitle: "Memory-Spiel zu Figuren- und Politikgeschichte bis 1939",
+  subtitle: "Memory-Spiel zu Figuren- und Debattengeschichte",
   defaultLevel: "level1",
   levels: [
     {
@@ -58,6 +58,39 @@ window.REISE_DER_VERLORENEN_META = {
         {
           title: "Schweiz",
           note: "Restriktion, J-Stempel und individuelle Rettungsspielräume."
+        }
+      ]
+    },
+    {
+      id: "level3",
+      title: "Level 3: Migrationsdebatte von 2015",
+      boardTitle: "Frage trifft Antwort",
+      promptLabel: "Frage",
+      responseLabel: "Antwort",
+      guides: [
+        {
+          title: "Grundlage",
+          note: "Dimensionen, Ankünfte und Deutungsrahmen des Jahres 2015."
+        },
+        {
+          title: "Ursachen",
+          note: "Krieg, Verfolgung, Erstzuflucht und Weiterwanderung."
+        },
+        {
+          title: "Routen",
+          note: "Östliches Mittelmeer, Westbalkanroute und Grenzregime."
+        },
+        {
+          title: "Deutschland",
+          note: "Zielstaat, Aufnahme, Verwaltung und Gesetzesverschärfungen."
+        },
+        {
+          title: "Europa",
+          note: "Dublin, Hotspots, Grenzsicherung und politische Spaltung."
+        },
+        {
+          title: "Polarisierung",
+          note: "Willkommenskultur, Köln, AfD und öffentliche Zuspitzung."
         }
       ]
     }
@@ -427,5 +460,188 @@ window.REISE_DER_VERLORENEN_LEVEL2_CARDS = [
     prompt: "Warum sind der 'J'-Stempel und Paul Grüninger für die Schweiz bis 1939 so aufschlussreich?",
     response: "Die Schweiz wirkte an der Kennzeichnung jüdischer Pässe mit und erleichterte so Zurückweisungen; zugleich retteten Einzelne wie Paul Grüninger tausende Menschen durch bewussten Regelbruch.",
     category: "Schweiz"
+  }
+];
+
+window.REISE_DER_VERLORENEN_LEVEL3_CARDS = [
+  {
+    id: "2015-ueberblick",
+    prompt: "Worum ging es bei der Migrationsdebatte von 2015 im Kern?",
+    response: "Sie drehte sich um einen historischen Höhepunkt der Fluchtmigration nach Europa, um Schutzsuche, Grenzpolitik, Asylverfahren, Unterbringung und die politische Deutung dieser Entwicklungen.",
+    category: "Grundlage"
+  },
+  {
+    id: "2015-mittelmeer-zahl",
+    prompt: "Welche Größenordnung erreichten die Ankünfte über das Mittelmeer im Jahr 2015?",
+    response: "2015 kamen nach UNHCR-Angaben mehr als 1.000.000 Menschen über das Mittelmeer nach Europa; zugleich starben oder verschwanden mehrere tausend Menschen auf der Überfahrt.",
+    category: "Grundlage"
+  },
+  {
+    id: "2015-deutschland-asylantraege",
+    prompt: "Wie stark stiegen die Asylanträge in Deutschland im Jahr 2015 an?",
+    response: "In Deutschland wurden 2015 476.649 Asylanträge registriert, also ein Anstieg um 135 Prozent gegenüber 2014.",
+    category: "Grundlage"
+  },
+  {
+    id: "2015-groesste-herkunftslaender-de",
+    prompt: "Aus welchen Ländern kamen 2015 die meisten Asylsuchenden in Deutschland?",
+    response: "Bei den Erstanträgen stammte der größte Anteil aus Syrien, gefolgt von Albanien und Kosovo; bis November kamen über 60 Prozent aller Asylsuchenden aus Syrien, Afghanistan und Irak.",
+    category: "Grundlage"
+  },
+  {
+    id: "2015-syrien-fluchtmotor",
+    prompt: "Was war der stärkste Fluchtmotor hinter der Migrationsdebatte von 2015?",
+    response: "Der Krieg in Syrien, der seit 2011 Millionen Menschen vertrieben hatte, war der stärkste Auslöser der Fluchtbewegungen Richtung Europa.",
+    category: "Ursachen"
+  },
+  {
+    id: "2015-weitere-herkunftsraeume",
+    prompt: "Welche weiteren Krisenräume spielten 2015 eine wichtige Rolle?",
+    response: "Gewalt, Staatszerfall und Verfolgung in Afghanistan, Irak und Eritrea prägten die Fluchtbewegungen ebenfalls stark.",
+    category: "Ursachen"
+  },
+  {
+    id: "2015-erstzuflucht",
+    prompt: "Warum nahmen 2015 die Weiterwanderungen aus Erstzufluchtsländern zu?",
+    response: "Viele Menschen lebten bereits seit Jahren in der Türkei, im Libanon oder in Jordanien; als dort Ressourcen, Perspektiven und Versorgung knapper wurden, stieg der Druck zur Weiterreise.",
+    category: "Ursachen"
+  },
+  {
+    id: "2015-langzeitkrisen",
+    prompt: "Was bündelte sich 2015 zu einer großen Bewegung Richtung EU?",
+    response: "Langzeitkrisen, regionale Überforderung und neue Fluchtfenster kamen gleichzeitig zusammen und führten zu einer großen Bewegung nach Europa.",
+    category: "Ursachen"
+  },
+  {
+    id: "2015-zentrale-route",
+    prompt: "Welche Fluchtroute war 2015 der wichtigste Weg nach Mitteleuropa?",
+    response: "Die zentrale Route führte über das östliche Mittelmeer nach Griechenland und dann weiter über die Westbalkanroute Richtung Mitteleuropa.",
+    category: "Routen"
+  },
+  {
+    id: "2015-westbalkan-verlauf",
+    prompt: "Wie verlief die Westbalkanroute 2015 typischerweise?",
+    response: "Viele Menschen reisten von der Türkei auf griechische Inseln und dann über Nordmazedonien, Serbien, Ungarn, Kroatien, Slowenien oder Österreich weiter.",
+    category: "Routen"
+  },
+  {
+    id: "2015-westbalkan-charakter",
+    prompt: "Warum war die Westbalkanroute kein stabiler Korridor?",
+    response: "Sie war ein ständig umkämpfter Raum aus Grenzöffnungen, Grenzschließungen, improvisiertem Durchwinken, Staus, Zäunen, Polizeiketten und humanitären Notlagen.",
+    category: "Routen"
+  },
+  {
+    id: "2015-balkan-symbol",
+    prompt: "Warum wurde die Balkanroute zum Symbol der Migrationsdebatte von 2015?",
+    response: "An ihr zeigte sich exemplarisch, ob Staaten Menschen weiterleiteten, aufnahmen, anhielten oder zurückwiesen; sie stand damit für europäische Souveränitäts- und Grenzkonflikte.",
+    category: "Routen"
+  },
+  {
+    id: "2015-deutschland-zielstaat",
+    prompt: "Warum wurde Deutschland 2015 zu einem der wichtigsten Zielländer?",
+    response: "Wirtschaftliche Stärke, bestehende Diaspora-Netzwerke, gute Schutzchancen für Syrer und der Eindruck relativer Aufnahmebereitschaft machten Deutschland besonders attraktiv.",
+    category: "Deutschland"
+  },
+  {
+    id: "2015-merkel-signalwirkung",
+    prompt: "Worin bestand die politische Signalwirkung des Sommers 2015 in Deutschland?",
+    response: "Die Entscheidung, Schutzsuchende an der deutsch-österreichischen Grenze nicht einfach zurückzuweisen, wurde eng mit Angela Merkels Satz 'Wir schaffen das' verbunden.",
+    category: "Deutschland"
+  },
+  {
+    id: "2015-politik-spannung",
+    prompt: "Zwischen welchen Polen bewegte sich die deutsche Politik 2015?",
+    response: "Sie bewegte sich zwischen humanitärer Öffnung, administrativer Überforderung und späteren gesetzlichen Verschärfungen.",
+    category: "Deutschland"
+  },
+  {
+    id: "2015-verwaltung-druck",
+    prompt: "Welche staatlichen Bereiche gerieten 2015 in Deutschland besonders unter Druck?",
+    response: "Vor allem Registrierung, Unterbringung, Versorgung und Asylverfahren kamen zeitweise an ihre Grenzen.",
+    category: "Deutschland"
+  },
+  {
+    id: "2015-asylrecht-verschaerfung",
+    prompt: "Wie verschärfte Deutschland noch im Jahr 2015 das Asylrecht?",
+    response: "Durch schnellere Verfahren, erweiterte Listen sicherer Herkunftsstaaten und Maßnahmen zur Beschleunigung von Abschiebungen ohne Schutzperspektive.",
+    category: "Deutschland"
+  },
+  {
+    id: "2015-eu-spaltung",
+    prompt: "Was zeigte sich 2015 auf EU-Ebene besonders deutlich?",
+    response: "Die Europäische Union war tief gespalten; Außengrenzstaaten fühlten sich überlastet, Zielstaaten forderten Solidarität und andere Regierungen lehnten Aufnahmequoten ab.",
+    category: "Europa"
+  },
+  {
+    id: "2015-dublin-problem",
+    prompt: "Welches Grundproblem des europäischen Asylsystems trat 2015 offen zutage?",
+    response: "Es gab zwar gemeinsame Regeln wie das Dublin-System, aber keine funktionsfähige gemeinsame Antwort auf einen Massenzustrom.",
+    category: "Europa"
+  },
+  {
+    id: "2015-eu-debatten",
+    prompt: "Welche Maßnahmen wurden 2015 auf europäischer Ebene diskutiert?",
+    response: "Zur Debatte standen Hotspots, Umverteilung, Grenzsicherung, der Ausbau von Frontex, zusätzliche Aufnahmeplätze und Rückführungen.",
+    category: "Europa"
+  },
+  {
+    id: "2015-balkan-sondergipfel",
+    prompt: "Was wurde auf dem Sondergipfel zur Balkanroute am 25. Oktober 2015 beschlossen?",
+    response: "Ein 17-Punkte-Plan mit zusätzlichen Aufnahmeplätzen, stärkerem Grenzschutz und besserer Registrierung entlang der Route.",
+    category: "Europa"
+  },
+  {
+    id: "2015-willkommenskultur-begriff",
+    prompt: "Was bezeichnet der Begriff Willkommenskultur im Zusammenhang mit 2015?",
+    response: "Er beschreibt die breite zivilgesellschaftliche Bereitschaft, Geflüchtete zu begrüßen, zu versorgen, zu dolmetschen, Kleidung zu sammeln oder bei Behördenwegen zu helfen.",
+    category: "Polarisierung"
+  },
+  {
+    id: "2015-willkommenskultur-funktion",
+    prompt: "Warum war die Willkommenskultur 2015 praktisch so bedeutsam?",
+    response: "Sie fing staatliche Lücken teilweise auf; Bahnhöfe, Notunterkünfte und kommunale Einrichtungen wären vielerorts ohne Ehrenamtliche kaum funktionsfähig gewesen.",
+    category: "Polarisierung"
+  },
+  {
+    id: "2015-willkommenskultur-umstritten",
+    prompt: "Warum war die Willkommenskultur zugleich politisch umstritten?",
+    response: "Für die einen war sie Ausdruck humanitärer Reife, für die anderen ein Symbol staatlicher Kontrollverluste.",
+    category: "Polarisierung"
+  },
+  {
+    id: "2015-koeln-wendepunkt",
+    prompt: "Warum gilt Köln in der Nacht 2015/16 als Wendepunkt der Debatte?",
+    response: "Die massenhaften Diebstähle und sexuellen Übergriffe rund um den Kölner Hauptbahnhof verschoben die Debatte deutlich weg von Aufnahme und stärker hin zu Sicherheit, Kontrolle und Integration.",
+    category: "Polarisierung"
+  },
+  {
+    id: "2015-koeln-staatsversagen",
+    prompt: "Wie wurde die Kölner Silvesternacht später häufig bewertet?",
+    response: "Sie wurde als schweres Staats- und Sicherheitsversagen rekonstruiert, das die öffentliche Wahrnehmung und politische Diskussion stark prägte.",
+    category: "Polarisierung"
+  },
+  {
+    id: "2015-koeln-deutungswandel",
+    prompt: "Welchen Deutungswandel löste Köln in der öffentlichen Wahrnehmung aus?",
+    response: "Die Debatte verschob sich von Humanität und Aufnahme stärker in Richtung Sicherheit, Ablehnung, Geschlechterpolitik und Forderungen nach Kontrolle.",
+    category: "Polarisierung"
+  },
+  {
+    id: "2015-afd-beschleuniger",
+    prompt: "Warum wurde 2015/16 für die AfD zu einem entscheidenden Beschleuniger?",
+    response: "Die Partei profilierte sich stark über das Thema Migration und die scharfe Kritik an Merkels Politik und profitierte davon, dass viele die Situation als Kontrollverlust wahrnahmen.",
+    category: "Polarisierung"
+  },
+  {
+    id: "2015-afd-landtage",
+    prompt: "Woran zeigte sich der politische Aufstieg der AfD besonders deutlich?",
+    response: "Bei den Landtagswahlen 2016 zog sie stark in Parlamente ein; in Baden-Württemberg erreichte sie aus dem Stand 15,1 Prozent.",
+    category: "Polarisierung"
+  },
+  {
+    id: "2015-polarisierung-grundfragen",
+    prompt: "Welche Grundfragen machte die Migrationsdebatte von 2015 sichtbar?",
+    response: "Sie stellte Fragen nach Zugehörigkeit, staatlicher Verantwortung gegenüber Schutzsuchenden, kultureller Veränderung sowie dem Verhältnis von Humanität, Kontrolle und Sicherheit.",
+    category: "Polarisierung"
   }
 ];
