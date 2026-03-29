@@ -144,7 +144,7 @@ window.REISE_DER_VERLORENEN_LEVEL1_CARDS = [
   {
     id: "fritz-spanier",
     prompt: "Fritz Spanier",
-    response: "Dr. Spanier; verheiratet, Familienvater; wird Ansprechpartner der Passagiere; fragt nach Rückkehr nach Deutschland; gilt als vernünftig; soll ein Komitee gründen.",
+    response: "Deutscher Arzt; 1902 geboren; 1933 wegen jüdischer Herkunft entlassen; floh 1939 mit Frau Babette und den Zwillingstöchtern auf der St. Louis; sollte das Bordkomitee leiten, lehnte aber ab; leitete später das Krankenhaus in Westerbork.",
     category: "An Bord"
   },
   {
