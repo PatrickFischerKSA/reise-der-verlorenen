@@ -93,6 +93,31 @@ window.REISE_DER_VERLORENEN_META = {
           note: "Willkommenskultur, Köln, AfD und öffentliche Zuspitzung."
         }
       ]
+    },
+    {
+      id: "level4",
+      title: "Level 4: Schweiz und Deutschland (AfD) 2022-2026",
+      boardTitle: "Frage trifft Antwort",
+      promptLabel: "Frage",
+      responseLabel: "Antwort",
+      guides: [
+        {
+          title: "Schweiz",
+          note: "SVP-Initiative, Bevölkerungsgrenze und Migrationsbegrenzung."
+        },
+        {
+          title: "EU 2022",
+          note: "Vorübergehender Schutz für ukrainische Flüchtlinge."
+        },
+        {
+          title: "Deutschland / AfD",
+          note: "Remigrationsdebatte, Proteste und politische Verschiebung."
+        },
+        {
+          title: "Vergleich",
+          note: "Begriffe, Kategorien und politische Steuerung von Migration."
+        }
+      ]
     }
   ]
 };
@@ -643,5 +668,188 @@ window.REISE_DER_VERLORENEN_LEVEL3_CARDS = [
     prompt: "Welche Grundfragen machte die Migrationsdebatte von 2015 sichtbar?",
     response: "Sie stellte Fragen nach Zugehörigkeit, staatlicher Verantwortung gegenüber Schutzsuchenden, kultureller Veränderung sowie dem Verhältnis von Humanität, Kontrolle und Sicherheit.",
     category: "Polarisierung"
+  }
+];
+
+window.REISE_DER_VERLORENEN_LEVEL4_CARDS = [
+  {
+    id: "svp-initiative-titel",
+    prompt: "Wie lautet der offizielle Titel der SVP-Initiative zur Bevölkerungsgrenze?",
+    response: "Die eidgenössische Volksinitiative trägt den Titel 'Keine 10-Millionen-Schweiz! (Nachhaltigkeitsinitiative)'.",
+    category: "Schweiz"
+  },
+  {
+    id: "svp-initiative-zeitpunkt",
+    prompt: "Wann wurde die SVP-Initiative eingereicht und wann die Botschaft des Bundesrats verabschiedet?",
+    response: "Sie wurde am 3. April 2024 eingereicht, am 8. Mai 2024 als zustande gekommen festgestellt und die Botschaft des Bundesrats am 21. März 2025 verabschiedet.",
+    category: "Schweiz"
+  },
+  {
+    id: "svp-zehn-millionen-ziel",
+    prompt: "Welche Obergrenze für die ständige Wohnbevölkerung fordert die SVP-Initiative?",
+    response: "Sie verlangt, dass die ständige Wohnbevölkerung der Schweiz vor 2050 zehn Millionen Menschen nicht überschreiten darf.",
+    category: "Schweiz"
+  },
+  {
+    id: "svp-vorwarnmechanismus",
+    prompt: "Was passiert laut Initiativtext schon vor dem Erreichen von zehn Millionen Einwohnern?",
+    response: "Wenn die ständige Wohnbevölkerung vor 2050 über 9,5 Millionen steigt, sollen Bundesrat und Bundesversammlung Maßnahmen ergreifen, ausdrücklich auch im Asylbereich und beim Familiennachzug.",
+    category: "Schweiz"
+  },
+  {
+    id: "svp-vorlaeufig-aufgenommene",
+    prompt: "Welche Folgen sieht die Initiative für vorläufig Aufgenommene ab 9,5 Millionen Einwohnern vor?",
+    response: "Sie sollen keine Aufenthalts- oder Niederlassungsbewilligung, kein Schweizer Bürgerrecht und kein anderes Bleiberecht erhalten, außer wenn zwingendes Völkerrecht entgegensteht.",
+    category: "Schweiz"
+  },
+  {
+    id: "svp-vertraege",
+    prompt: "Was verlangt die Initiative, falls die Grenze von zehn Millionen trotzdem überschritten wird?",
+    response: "Dann sollen internationale Abkommen neu verhandelt, mit Schutzklauseln versehen oder gekündigt werden, wenn sie das Bevölkerungswachstum antreiben.",
+    category: "Schweiz"
+  },
+  {
+    id: "svp-begruendung",
+    prompt: "Mit welchen politischen Argumenten begründet die SVP ihre Initiative?",
+    response: "Sie verweist auf 'unkontrollierte Einwanderung', steigende Mieten, überlastete Infrastrukturen, Naturverbrauch und starke Zuwanderung.",
+    category: "Schweiz"
+  },
+  {
+    id: "svp-kritik-parlament",
+    prompt: "Was ist ein zentraler Kritikpunkt von Parlament und Bundesrat an der Initiative?",
+    response: "Sie kritisieren vor allem die harten praktischen Folgen einer verfassungsrechtlichen Obergrenze für Bevölkerung, Asyl, Familiennachzug und internationale Verpflichtungen.",
+    category: "Schweiz"
+  },
+  {
+    id: "bfs-referenzszenario",
+    prompt: "Welche demografische Entwicklung bildet den Hintergrund der Schweizer Debatte?",
+    response: "Das Bundesamt für Statistik rechnet im Referenzszenario damit, dass die ständige Wohnbevölkerung von 9,0 Millionen Ende 2024 auf rund 10,5 Millionen im Jahr 2055 steigt.",
+    category: "Schweiz"
+  },
+  {
+    id: "svp-keine-umweltvorlage",
+    prompt: "Warum ist die Initiative keine reine Umweltvorlage, obwohl sie Nachhaltigkeitsinitiative heißt?",
+    response: "Weil ihr Verfassungstext direkt in Asyl-, Familiennachzugs- und Migrationspolitik eingreift und ökologische Sprache mit klassischer Begrenzungspolitik verbindet.",
+    category: "Schweiz"
+  },
+  {
+    id: "eu-richtlinie-aktivierung",
+    prompt: "Welches europäische Sonderinstrument wurde 2022 erstmals aktiviert?",
+    response: "Die EU aktivierte erstmals die Richtlinie über vorübergehenden Schutz als Reaktion auf die russische Vollinvasion in die Ukraine.",
+    category: "EU 2022"
+  },
+  {
+    id: "eu-zeitpunkt-ukraine",
+    prompt: "Wann legte die EU-Kommission den Vorschlag für den vorübergehenden Schutz vor und wann nahm der Rat ihn an?",
+    response: "Die Kommission legte den Vorschlag am 2. März 2022 vor, und der Rat nahm die Entscheidung am 4. März 2022 einstimmig an.",
+    category: "EU 2022"
+  },
+  {
+    id: "eu-kollektivschutz",
+    prompt: "Was war der Kern der europäischen Flüchtlingspolitik gegenüber ukrainischen Schutzsuchenden im Jahr 2022?",
+    response: "Sie erhielten kollektiven Sofortschutz und mussten nicht zunächst ein individuelles Asylverfahren durchlaufen.",
+    category: "EU 2022"
+  },
+  {
+    id: "eu-ziel-instrument",
+    prompt: "Warum setzte die EU 2022 auf das Instrument des vorübergehenden Schutzes?",
+    response: "Die EU wollte einen Massenzustrom schnell bewältigen und gleichzeitig verhindern, dass die nationalen Asylsysteme durch individuelle Verfahren überlastet werden.",
+    category: "EU 2022"
+  },
+  {
+    id: "eu-rechte-ukraine",
+    prompt: "Welche Rechte gehörten 2022 zum vorübergehenden Schutz für ukrainische Flüchtlinge?",
+    response: "Dazu gehörten Aufenthaltsrecht, Zugang zum Arbeitsmarkt, Unterkunft oder Wohnraum, medizinische Versorgung, Sozialleistungen und Bildung für Kinder.",
+    category: "EU 2022"
+  },
+  {
+    id: "eu-visafreiheit",
+    prompt: "Welche Besonderheit galt 2022 für ukrainische Staatsangehörige bei der Einreise in die EU?",
+    response: "Sie konnten als visumfreie Reisende zunächst frei in die EU einreisen und dann das Land wählen, in dem sie ihre Schutzrechte in Anspruch nahmen.",
+    category: "EU 2022"
+  },
+  {
+    id: "eu-beguenstigte",
+    prompt: "Wer war außer ukrainischen Staatsangehörigen noch vom Schutzsystem der EU erfasst?",
+    response: "Auch Familienangehörige, nicht-ukrainische Personen mit internationalem Schutz in der Ukraine und bestimmte dauerhaft aufhältige Drittstaatsangehörige konnten erfasst sein.",
+    category: "EU 2022"
+  },
+  {
+    id: "eu-verlaengerung-2027",
+    prompt: "Bis wann ist der vorübergehende Schutz für ukrainische Flüchtlinge inzwischen verlängert?",
+    response: "Nach der jüngsten dokumentierten Entscheidung ist der vorübergehende Schutz bis zum 4. März 2027 verlängert.",
+    category: "EU 2022"
+  },
+  {
+    id: "eu-vier-millionen",
+    prompt: "Wie viele Menschen standen 2025 ungefähr unter dem Mechanismus des vorübergehenden Schutzes?",
+    response: "Der Rat bezifferte die Zahl 2025 auf über 4 Millionen, aktuell fast 4,4 Millionen Menschen.",
+    category: "EU 2022"
+  },
+  {
+    id: "eu-kontrast-2015",
+    prompt: "Warum ist die europäische Politik von 2022 für Vergleiche mit 2015 besonders interessant?",
+    response: "Sie zeigt, dass die EU bei politischem Willen schnell, kollektiv und relativ großzügig Schutz organisieren kann, anders als in der stärker konflikthaften Reaktion von 2015.",
+    category: "EU 2022"
+  },
+  {
+    id: "remigration-streitwort",
+    prompt: "Warum wurde der Begriff 'Remigration' 2024 in Deutschland zu einem zentralen Streitwort?",
+    response: "Weil er öffentlich mit AfD-Politikern, dem Potsdamer Treffen und Berichten über massenhafte Vertreibungspläne in Verbindung gebracht wurde.",
+    category: "Deutschland / AfD"
+  },
+  {
+    id: "bundestag-aktuelle-stunde",
+    prompt: "Wie fasste der Bundestag die Empörung über die Remigrationsdebatte im Januar 2024 zusammen?",
+    response: "In der Aktuellen Stunde wurde von Berichten über Beratungen von Rechtsextremisten und AfD-Politikern zur massenhaften Vertreibung von Menschen mit Migrationshintergrund gesprochen.",
+    category: "Deutschland / AfD"
+  },
+  {
+    id: "correctiv-potsdam",
+    prompt: "Welche Rolle spielte die Correctiv-Recherche zum Potsdamer Treffen?",
+    response: "Sie lieferte einen wesentlichen Auslöser der Debatte, weil sie berichtete, dort sei 'Remigration' nicht nur für Asylsuchende, sondern auch für andere Gruppen mit Aufenthaltsrecht oder sogar deutsche Staatsbürger diskutiert worden.",
+    category: "Deutschland / AfD"
+  },
+  {
+    id: "proteste-gegen-rechts",
+    prompt: "Welche breite gesellschaftliche Folge hatte die Correctiv-Veröffentlichung?",
+    response: "Sie löste große bundesweite Proteste gegen Rechts im Januar 2024 mit aus.",
+    category: "Deutschland / AfD"
+  },
+  {
+    id: "afd-eigene-definition",
+    prompt: "Wie reagierte die AfD offiziell auf die Debatte um den Begriff 'Remigration'?",
+    response: "Sie gab den Begriff nicht auf, sondern beschloss am 29. Januar 2024 ein offizielles Positionspapier dazu und definierte ihn selbst politisch weiter.",
+    category: "Deutschland / AfD"
+  },
+  {
+    id: "verfassungsschutz-remigration",
+    prompt: "Wie beschreibt der Verfassungsschutz die Etablierung des Begriffs 'Remigration' im Jahr 2024?",
+    response: "Er hält fest, dass der Begriff 2024 erfolgreich in der politischen Debatte verankert wurde, also von der extrem rechten Sphäre in die Hauptdebatte hineingewandert ist.",
+    category: "Deutschland / AfD"
+  },
+  {
+    id: "remigration-aufgeladen",
+    prompt: "Warum ist die Remigrationsdebatte in der Sache so stark aufgeladen?",
+    response: "Weil der Begriff je nach Sprecher mit Abschiebung, Rückführung, Vertreibung oder ethnisch markierter Aussonderung verbunden wird.",
+    category: "Deutschland / AfD"
+  },
+  {
+    id: "afd-begriff-politisch",
+    prompt: "Was bedeutet es politisch, dass die AfD den Begriff 'Remigration' offensiv weiterverwendet?",
+    response: "Es zeigt, dass ein ehemals randständiger, im rechtsextremen Milieu geprägter Begriff in die parlamentarische und breitere politische Normalität verschoben wird.",
+    category: "Deutschland / AfD"
+  },
+  {
+    id: "leitfrage-begriffe",
+    prompt: "Was verbindet die Schweizer Initiative, die EU-Politik 2022 und die Remigrationsdebatte der AfD auf einer übergeordneten Ebene?",
+    response: "Alle drei zeigen, wie stark Migrationspolitik über Begriffe, Kategorien und Ausnahmeregeln gesteuert wird.",
+    category: "Vergleich"
+  },
+  {
+    id: "leitfrage-kategorien",
+    prompt: "Welche gemeinsame Leitfrage lässt sich aus allen drei Themen für den Unterricht ableiten?",
+    response: "Wie verändert sich Politik, wenn Menschen als Schutzsuchende, Masse, Bevölkerungsproblem oder Rückführungsgruppe beschrieben werden?",
+    category: "Vergleich"
   }
 ];

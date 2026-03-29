@@ -4,7 +4,8 @@
   const levelPools = {
     level1: window.REISE_DER_VERLORENEN_LEVEL1_CARDS || [],
     level2: window.REISE_DER_VERLORENEN_LEVEL2_CARDS || [],
-    level3: window.REISE_DER_VERLORENEN_LEVEL3_CARDS || []
+    level3: window.REISE_DER_VERLORENEN_LEVEL3_CARDS || [],
+    level4: window.REISE_DER_VERLORENEN_LEVEL4_CARDS || []
   };
   const playerLabels = ["Signal", "Kompass", "Hafen", "Transit"];
 
