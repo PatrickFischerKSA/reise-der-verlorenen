@@ -8,6 +8,7 @@
     level4: window.REISE_DER_VERLORENEN_LEVEL4_CARDS || []
   };
   const playerLabels = ["Signal", "Kompass", "Hafen", "Transit"];
+  const PROGRESS_STORAGE_KEY = "reise-der-verlorenen-progress-v2";
 
   const elements = {
     levelSelect: document.getElementById("levelSelect"),
@@ -22,6 +23,7 @@
     attemptStat: document.getElementById("attemptStat"),
     timerStat: document.getElementById("timerStat"),
     statusBanner: document.getElementById("statusBanner"),
+    progressList: document.getElementById("progressList"),
     boardTitle: document.getElementById("boardTitle"),
     deckMeta: document.getElementById("deckMeta"),
     board: document.getElementById("board"),
@@ -60,7 +62,8 @@
     startedAt: null,
     timerId: null,
     lastMatch: null,
-    zoomCardUid: null
+    zoomCardUid: null,
+    progress: null
   };
 
   function shuffle(list) {
@@ -78,6 +81,86 @@
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
+  }
+
+  function buildEmptyProgress() {
+    return levelDefinitions.reduce((accumulator, level, index) => {
+      accumulator[level.id] = {
+        playsCompleted: 0,
+        bestShare: 0,
+        initiallyUnlocked: index === 0
+      };
+      return accumulator;
+    }, {});
+  }
+
+  function loadProgress() {
+    const fallback = buildEmptyProgress();
+    try {
+      const raw = window.localStorage.getItem(PROGRESS_STORAGE_KEY);
+      if (!raw) {
+        return fallback;
+      }
+
+      const parsed = JSON.parse(raw);
+      return levelDefinitions.reduce((accumulator, level, index) => {
+        const entry = parsed[level.id] || {};
+        accumulator[level.id] = {
+          playsCompleted: Number(entry.playsCompleted) || 0,
+          bestShare: Number(entry.bestShare) || 0,
+          initiallyUnlocked: index === 0
+        };
+        return accumulator;
+      }, {});
+    } catch (error) {
+      return fallback;
+    }
+  }
+
+  function saveProgress() {
+    try {
+      window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(state.progress));
+    } catch (error) {
+      // Ignored on purpose: the game should keep working even without storage access.
+    }
+  }
+
+  function getProgressEntry(levelId) {
+    return state.progress[levelId];
+  }
+
+  function levelMeetsUnlockRequirement(levelId) {
+    const entry = getProgressEntry(levelId);
+    if (!entry) {
+      return false;
+    }
+    return entry.playsCompleted >= 2 && entry.bestShare >= 0.5;
+  }
+
+  function isLevelUnlocked(levelId) {
+    const levelIndex = levelDefinitions.findIndex((level) => level.id === levelId);
+    if (levelIndex <= 0) {
+      return true;
+    }
+
+    const previousLevelId = levelDefinitions[levelIndex - 1].id;
+    return isLevelUnlocked(previousLevelId) && levelMeetsUnlockRequirement(previousLevelId);
+  }
+
+  function getHighestUnlockedLevelId() {
+    let highestLevelId = levelDefinitions[0] ? levelDefinitions[0].id : fallbackLevel.id;
+    levelDefinitions.forEach((level) => {
+      if (isLevelUnlocked(level.id)) {
+        highestLevelId = level.id;
+      }
+    });
+    return highestLevelId;
+  }
+
+  function ensureSelectableLevel() {
+    if (!isLevelUnlocked(state.level)) {
+      state.level = getHighestUnlockedLevelId();
+    }
   }
 
   function getActiveLevel() {
@@ -144,8 +227,17 @@
   }
 
   function populateLevelSelect() {
+    ensureSelectableLevel();
     elements.levelSelect.innerHTML = levelDefinitions
-      .map((level) => `<option value="${escapeHtml(level.id)}">${escapeHtml(level.title)}</option>`)
+      .map((level) => {
+        const unlocked = isLevelUnlocked(level.id);
+        const suffix = unlocked ? "" : " - gesperrt";
+        return `
+          <option value="${escapeHtml(level.id)}" ${unlocked ? "" : "disabled"}>
+            ${escapeHtml(level.title + suffix)}
+          </option>
+        `;
+      })
       .join("");
     elements.levelSelect.value = state.level;
   }
@@ -173,6 +265,45 @@
           </article>
         `
       )
+      .join("");
+  }
+
+  function renderProgress() {
+    elements.progressList.innerHTML = levelDefinitions
+      .map((level, index) => {
+        const entry = getProgressEntry(level.id);
+        const unlocked = isLevelUnlocked(level.id);
+        const completed = levelMeetsUnlockRequirement(level.id);
+        const progressValue = Math.round(
+          (
+            (Math.min(entry.playsCompleted, 2) / 2) +
+            (Math.min(entry.bestShare, 0.5) / 0.5)
+          ) / 2 * 100
+        );
+        const statusText = completed
+          ? "Freigabebedingung erfüllt"
+          : unlocked
+            ? "Aktiv"
+            : "Gesperrt";
+
+        return `
+          <article class="progress-item ${completed ? "is-complete" : unlocked ? "is-active" : "is-locked"}">
+            <div class="progress-top">
+              <strong>${escapeHtml(level.title)}</strong>
+              <span>${escapeHtml(statusText)}</span>
+            </div>
+            <div class="progress-bar">
+              <span style="width:${progressValue}%"></span>
+            </div>
+            <p class="progress-meta">
+              Abschlüsse: ${entry.playsCompleted}/2 · Beste Quote: ${Math.round(entry.bestShare * 100)}%
+            </p>
+            <p class="progress-meta">
+              ${index === 0 ? "Startlevel" : unlocked ? "Freigeschaltet" : "Wird durch das vorige Level freigeschaltet"}
+            </p>
+          </article>
+        `;
+      })
       .join("");
   }
 
@@ -279,6 +410,11 @@
 
   function startGame() {
     state.level = elements.levelSelect.value;
+    if (!isLevelUnlocked(state.level)) {
+      populateLevelSelect();
+      setStatus("Dieses Level ist noch gesperrt. Erfülle zuerst die Freischaltbedingungen des vorigen Levels.");
+      return;
+    }
     state.activeCategory = elements.categorySelect.value;
 
     const level = getActiveLevel();
@@ -431,6 +567,7 @@
     renderStats();
     renderMatchDetail();
     renderGuide();
+    renderProgress();
     renderBoard();
   }
 
@@ -439,11 +576,28 @@
     const duration = formatDuration(Date.now() - state.startedAt);
     const highScore = Math.max(...state.players.map((player) => player.score));
     const winners = state.players.filter((player) => player.score === highScore);
+    const bestShare = state.activePairCount > 0 ? highScore / state.activePairCount : 0;
     const winnerText = winners.length === 1
       ? `${winners[0].name} gewinnt mit ${winners[0].score} Paaren.`
       : `Gleichstand: ${winners.map((player) => player.name).join(", ")} mit je ${highScore} Paaren.`;
+    const currentLevelIndex = levelDefinitions.findIndex((level) => level.id === state.level);
+    const nextLevel = levelDefinitions[currentLevelIndex + 1] || null;
+    const nextLevelWasUnlocked = nextLevel ? isLevelUnlocked(nextLevel.id) : false;
+    const progressEntry = getProgressEntry(state.level);
+    progressEntry.playsCompleted += 1;
+    progressEntry.bestShare = Math.max(progressEntry.bestShare, bestShare);
+    saveProgress();
+    const nextLevelIsUnlocked = nextLevel ? isLevelUnlocked(nextLevel.id) : false;
 
-    setStatus(`${getActiveLevel().title} beendet nach ${duration}. ${winnerText}`);
+    populateLevelSelect();
+    renderProgress();
+
+    const unlockText = nextLevel && !nextLevelWasUnlocked && nextLevelIsUnlocked
+      ? ` ${nextLevel.title} ist jetzt freigeschaltet.`
+      : "";
+    setStatus(
+      `${getActiveLevel().title} beendet nach ${duration}. ${winnerText} Fortschritt: ${progressEntry.playsCompleted}/2 Abschlüsse, beste Quote ${Math.round(progressEntry.bestShare * 100)}%.${unlockText}`
+    );
   }
 
   function handleSuccessfulMatch(firstCard) {
@@ -529,6 +683,7 @@
 
   function handleLevelChange() {
     state.level = elements.levelSelect.value;
+    ensureSelectableLevel();
     state.activeCategory = "Alle Bereiche";
     populateCategorySelect();
     resetBoard(`${getActiveLevel().title} gewählt. Stelle nun Bereich und Kartenzahl ein und starte die Partie.`);
@@ -572,6 +727,7 @@
   }
 
   function init() {
+    state.progress = loadProgress();
     populateLevelSelect();
     populateCategorySelect();
     bindEvents();

@@ -299,6 +299,84 @@ select {
   background: rgba(255, 249, 243, 0.88);
 }
 
+.progress-panel {
+  margin-top: 18px;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.54);
+  padding: 18px;
+}
+
+.progress-head {
+  margin-bottom: 10px;
+}
+
+.progress-rule,
+.progress-meta {
+  color: var(--muted);
+}
+
+.progress-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.progress-item {
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 14px;
+}
+
+.progress-item.is-active {
+  border-color: rgba(29, 81, 96, 0.22);
+}
+
+.progress-item.is-complete {
+  border-color: rgba(205, 163, 93, 0.45);
+  background: rgba(247, 239, 198, 0.7);
+}
+
+.progress-item.is-locked {
+  opacity: 0.72;
+}
+
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.progress-top strong {
+  font-size: 0.98rem;
+}
+
+.progress-top span {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sea-deep);
+}
+
+.progress-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(18, 57, 70, 0.08);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--sea) 0%, var(--gold) 100%);
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

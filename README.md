@@ -21,6 +21,7 @@ Topics:
 - Filter nach Themenbereich
 - Lernblick zum kurzen Einprägen des Decks
 - Lupenfunktion für vollständige Kartentexte
+- Fortschrittsanzeige mit Level-Freischaltung per Speicherstand im Browser
 - GitHub-Pages-taugliches, statisches Frontend ohne Build-Schritt
 
 ## Projektstruktur
