@@ -17,17 +17,17 @@
         <p class="eyebrow">Volldigitalisiertes Memory</p>
         <h1>Reise der Verlorenen</h1>
         <p class="lead">
-          Finde zu jeder <strong>Namenkarte</strong> die passende <strong>Beschreibungskarte</strong>.
-          Alle Beschreibungen sind auf Stichworte gekürzt, ohne den Sinn zu verfälschen.
+          Spiele zwei vollständige Memory-Level: im ersten suchst du <strong>Namen und Beschreibungen</strong>,
+          im zweiten <strong>Fragen und Antworten</strong> zur Flüchtlingspolitik bis 1939.
         </p>
       </div>
 
       <div class="hero-note">
         <p class="eyebrow">Spielprinzip</p>
         <p>
-          Das Deck verbindet Figuren aus dem Drama rund um die <em>St. Louis</em> mit ihren Rollen,
-          Handlungen und historischen Funktionen. Treffende Paare bleiben offen, bringen Punkte
-          und erscheinen rechts in der Trefferansicht.
+          Beide Decks nutzen dieselbe Spielmechanik: Kategorien, Lernblick, Mehrspieler-Modus,
+          Trefferfenster und Lupe für vollständige Kartentexte. So lässt sich literarisches Figurenwissen
+          direkt mit historischem Kontextwissen verbinden.
         </p>
       </div>
     </section>
@@ -43,6 +43,11 @@
         </div>
 
         <div class="control-grid">
+          <label class="field">
+            <span>Spiellevel</span>
+            <select id="levelSelect"></select>
+          </label>
+
           <label class="field">
             <span>Spielende</span>
             <select id="playerCount">
@@ -120,7 +125,7 @@
         <div class="panel-head">
           <div>
             <p class="eyebrow">Spielfeld</p>
-            <h2>Namen trifft Beschreibung</h2>
+            <h2 id="boardTitle">Namen trifft Beschreibung</h2>
           </div>
           <p id="deckMeta" class="compact-copy">Noch keine Partie aktiv.</p>
         </div>
@@ -160,7 +165,7 @@
           </div>
           <div class="tips-list">
             <p>Zwei Karten pro Zug aufdecken.</p>
-            <p>Ein gültiges Paar besteht immer aus <strong>Name</strong> und <strong>Beschreibung</strong>.</p>
+            <p>Je nach Level suchst du <strong>Name/Beschreibung</strong> oder <strong>Frage/Antwort</strong>.</p>
             <p>Bei einem Treffer bleibt derselbe Spielende am Zug.</p>
             <p>Der Lernblick deckt alle Karten für acht Sekunden auf.</p>
             <p>Geöffnete Karten zeigen eine <strong>Lupe</strong> für die vollständige Ansicht.</p>

@@ -1,9 +1,14 @@
 (function () {
-  const cardPool = window.REISE_DER_VERLORENEN_CARDS || [];
   const meta = window.REISE_DER_VERLORENEN_META || {};
+  const levelDefinitions = meta.levels || [];
+  const levelPools = {
+    level1: window.REISE_DER_VERLORENEN_LEVEL1_CARDS || [],
+    level2: window.REISE_DER_VERLORENEN_LEVEL2_CARDS || []
+  };
   const playerLabels = ["Signal", "Kompass", "Hafen", "Transit"];
 
   const elements = {
+    levelSelect: document.getElementById("levelSelect"),
     playerCount: document.getElementById("playerCount"),
     pairCount: document.getElementById("pairCount"),
     categorySelect: document.getElementById("categorySelect"),
@@ -15,6 +20,7 @@
     attemptStat: document.getElementById("attemptStat"),
     timerStat: document.getElementById("timerStat"),
     statusBanner: document.getElementById("statusBanner"),
+    boardTitle: document.getElementById("boardTitle"),
     deckMeta: document.getElementById("deckMeta"),
     board: document.getElementById("board"),
     matchDetail: document.getElementById("matchDetail"),
@@ -27,7 +33,17 @@
     zoomCloseBtn: document.getElementById("zoomCloseBtn")
   };
 
+  const fallbackLevel = {
+    id: "level1",
+    title: "Level 1",
+    boardTitle: "Memory",
+    promptLabel: "Karte A",
+    responseLabel: "Karte B",
+    guides: []
+  };
+
   const state = {
+    level: meta.defaultLevel || (levelDefinitions[0] && levelDefinitions[0].id) || "level1",
     players: [],
     deck: [],
     openCards: [],
@@ -62,15 +78,23 @@
       .replace(/"/g, "&quot;");
   }
 
+  function getActiveLevel() {
+    return levelDefinitions.find((level) => level.id === state.level) || levelDefinitions[0] || fallbackLevel;
+  }
+
+  function getActivePool() {
+    return levelPools[state.level] || [];
+  }
+
   function getCategories() {
-    return ["Alle Bereiche", ...new Set(cardPool.map((card) => card.category))];
+    return ["Alle Bereiche", ...new Set(getActivePool().map((card) => card.category))];
   }
 
   function getFilteredPool() {
     if (state.activeCategory === "Alle Bereiche") {
-      return cardPool;
+      return getActivePool();
     }
-    return cardPool.filter((card) => card.category === state.activeCategory);
+    return getActivePool().filter((card) => card.category === state.activeCategory);
   }
 
   function createPlayers(count) {
@@ -83,24 +107,26 @@
   }
 
   function buildDeck(selection) {
+    const level = getActiveLevel();
+
     return shuffle(
       selection.flatMap((entry) => [
         {
-          uid: `${entry.id}-name`,
+          uid: `${entry.id}-prompt`,
           pairId: entry.id,
-          faceType: "name",
-          label: "Name",
-          title: entry.name,
-          body: entry.name,
+          faceType: "prompt",
+          label: level.promptLabel,
+          title: level.promptLabel,
+          body: entry.prompt,
           category: entry.category
         },
         {
-          uid: `${entry.id}-description`,
+          uid: `${entry.id}-response`,
           pairId: entry.id,
-          faceType: "description",
-          label: "Beschreibung",
-          title: entry.name,
-          body: entry.description,
+          faceType: "response",
+          label: level.responseLabel,
+          title: level.responseLabel,
+          body: entry.response,
           category: entry.category
         }
       ])
@@ -112,22 +138,31 @@
   }
 
   function getPairById(pairId) {
-    return cardPool.find((card) => card.id === pairId) || null;
+    return getActivePool().find((card) => card.id === pairId) || null;
+  }
+
+  function populateLevelSelect() {
+    elements.levelSelect.innerHTML = levelDefinitions
+      .map((level) => `<option value="${escapeHtml(level.id)}">${escapeHtml(level.title)}</option>`)
+      .join("");
+    elements.levelSelect.value = state.level;
   }
 
   function populateCategorySelect() {
     elements.categorySelect.innerHTML = getCategories()
       .map((category) => {
         const count = category === "Alle Bereiche"
-          ? cardPool.length
-          : cardPool.filter((entry) => entry.category === category).length;
+          ? getActivePool().length
+          : getActivePool().filter((entry) => entry.category === category).length;
         return `<option value="${escapeHtml(category)}">${escapeHtml(category)} (${count})</option>`;
       })
       .join("");
+    elements.categorySelect.value = state.activeCategory;
   }
 
   function renderGuide() {
-    elements.categoryGuide.innerHTML = (meta.guides || [])
+    const level = getActiveLevel();
+    elements.categoryGuide.innerHTML = (level.guides || [])
       .map(
         (guide) => `
           <article class="guide-item">
@@ -139,15 +174,21 @@
       .join("");
   }
 
+  function updateLevelCopy() {
+    const level = getActiveLevel();
+    elements.boardTitle.textContent = level.boardTitle;
+  }
+
   function updateSetupHint(requestedPairs, actualPairs, availablePairs) {
+    const level = getActiveLevel();
     if (requestedPairs > availablePairs) {
       elements.setupHint.textContent =
-        `Im gewählten Bereich gibt es ${availablePairs} Paare. Für diese Partie werden deshalb ${actualPairs} Paare verwendet.`;
+        `${level.title}: Im gewählten Bereich gibt es ${availablePairs} Paare. Für diese Partie werden deshalb ${actualPairs} Paare verwendet.`;
       return;
     }
 
     elements.setupHint.textContent =
-      `Im aktuellen Bereich stehen ${availablePairs} mögliche Paare zur Auswahl.`;
+      `${level.title}: Im aktuellen Bereich stehen ${availablePairs} mögliche Paare zur Auswahl.`;
   }
 
   function setStatus(message) {
@@ -163,7 +204,7 @@
     state.zoomCardUid = uid;
     elements.zoomType.textContent = card.label;
     elements.zoomTitle.textContent = card.title;
-    elements.zoomMeta.textContent = `${card.category} · Vollständige Kartenansicht`;
+    elements.zoomMeta.textContent = `${card.category} · ${getActiveLevel().title}`;
     elements.zoomText.textContent = card.body;
     elements.zoomModal.classList.remove("modal-hidden");
     elements.zoomModal.setAttribute("aria-hidden", "false");
@@ -212,11 +253,35 @@
     }
   }
 
+  function resetBoard(message) {
+    stopTimer();
+    closeZoom();
+    state.players = createPlayers(Number(elements.playerCount.value));
+    state.deck = [];
+    state.openCards = [];
+    state.matchedPairIds = new Set();
+    state.currentPlayerIndex = 0;
+    state.attempts = 0;
+    state.matches = 0;
+    state.activePairCount = 0;
+    state.boardLocked = false;
+    state.previewMode = false;
+    state.startedAt = null;
+    state.lastMatch = null;
+    render();
+    updateSetupHint(Number(elements.pairCount.value), Number(elements.pairCount.value), getActivePool().length);
+    if (message) {
+      setStatus(message);
+    }
+  }
+
   function startGame() {
-    const playerCount = Number(elements.playerCount.value);
-    const requestedPairs = Number(elements.pairCount.value);
+    state.level = elements.levelSelect.value;
     state.activeCategory = elements.categorySelect.value;
 
+    const level = getActiveLevel();
+    const playerCount = Number(elements.playerCount.value);
+    const requestedPairs = Number(elements.pairCount.value);
     const filteredPool = shuffle(getFilteredPool());
     const actualPairs = Math.min(requestedPairs, filteredPool.length);
     const selection = filteredPool.slice(0, actualPairs);
@@ -239,7 +304,7 @@
     render();
 
     setStatus(
-      `Neue Partie: ${actualPairs} Paare im Bereich „${state.activeCategory}“. ${state.players[0].name} beginnt.`
+      `${level.title}: ${actualPairs} Paare im Bereich „${state.activeCategory}“. ${state.players[0].name} beginnt.`
     );
   }
 
@@ -272,7 +337,7 @@
     elements.pairsFoundStat.textContent = `${state.matches} / ${state.activePairCount}`;
     elements.attemptStat.textContent = String(state.attempts);
     elements.deckMeta.textContent = state.activePairCount
-      ? `${state.deck.length} Karten, Bereich: ${state.activeCategory}.`
+      ? `${state.deck.length} Karten, ${getActiveLevel().title}, Bereich: ${state.activeCategory}.`
       : "Noch keine Partie aktiv.";
     updateTimer();
   }
@@ -284,11 +349,18 @@
       return;
     }
 
+    const level = getActiveLevel();
     elements.matchDetail.className = "match-detail";
     elements.matchDetail.innerHTML = `
       <p class="detail-category">${escapeHtml(state.lastMatch.category)}</p>
-      <h3>${escapeHtml(state.lastMatch.name)}</h3>
-      <p>${escapeHtml(state.lastMatch.description)}</p>
+      <div class="detail-entry">
+        <p class="detail-label">${escapeHtml(level.promptLabel)}</p>
+        <p>${escapeHtml(state.lastMatch.prompt)}</p>
+      </div>
+      <div class="detail-entry">
+        <p class="detail-label">${escapeHtml(level.responseLabel)}</p>
+        <p>${escapeHtml(state.lastMatch.response)}</p>
+      </div>
     `;
   }
 
@@ -310,17 +382,13 @@
           "memory-card",
           visible ? "is-visible" : "",
           matched ? "is-matched" : "",
-          card.faceType === "name" ? "card-name" : "card-description"
+          card.faceType === "prompt" ? "card-name" : "card-description"
         ]
           .filter(Boolean)
           .join(" ");
 
         return `
-          <article
-            class="${classes}"
-            data-visible="${visible ? "true" : "false"}"
-            data-matched="${matched ? "true" : "false"}"
-          >
+          <article class="${classes}">
             <button
               class="card-toggle"
               type="button"
@@ -331,7 +399,7 @@
               <span class="card-shell">
                 <span class="card-face card-front">
                   <span class="card-badge">${escapeHtml(card.label)}</span>
-                  <strong>${card.faceType === "name" ? "?" : "..."}</strong>
+                  <strong>${card.faceType === "prompt" ? "?" : "..."}</strong>
                 </span>
                 <span class="card-face card-back">
                   <span class="card-badge">${escapeHtml(card.label)}</span>
@@ -356,9 +424,11 @@
   }
 
   function render() {
+    updateLevelCopy();
     renderScoreboard();
     renderStats();
     renderMatchDetail();
+    renderGuide();
     renderBoard();
   }
 
@@ -371,10 +441,10 @@
       ? `${winners[0].name} gewinnt mit ${winners[0].score} Paaren.`
       : `Gleichstand: ${winners.map((player) => player.name).join(", ")} mit je ${highScore} Paaren.`;
 
-    setStatus(`Partie beendet nach ${duration}. ${winnerText}`);
+    setStatus(`${getActiveLevel().title} beendet nach ${duration}. ${winnerText}`);
   }
 
-  function handleSuccessfulMatch(firstCard, secondCard) {
+  function handleSuccessfulMatch(firstCard) {
     state.matchedPairIds.add(firstCard.pairId);
     state.matches += 1;
     state.players[state.currentPlayerIndex].score += 1;
@@ -409,12 +479,7 @@
     }
 
     const card = getCardByUid(uid);
-    if (!card) {
-      return;
-    }
-
-    const alreadyVisible = isVisible(card);
-    if (alreadyVisible) {
+    if (!card || isVisible(card)) {
       return;
     }
 
@@ -436,7 +501,7 @@
       firstCard.faceType !== secondCard.faceType;
 
     if (isMatch) {
-      handleSuccessfulMatch(firstCard, secondCard);
+      handleSuccessfulMatch(firstCard);
       return;
     }
 
@@ -460,10 +525,18 @@
     }, 8000);
   }
 
+  function handleLevelChange() {
+    state.level = elements.levelSelect.value;
+    state.activeCategory = "Alle Bereiche";
+    populateCategorySelect();
+    resetBoard(`${getActiveLevel().title} gewählt. Stelle nun Bereich und Kartenzahl ein und starte die Partie.`);
+  }
+
   function bindEvents() {
     elements.startGameBtn.addEventListener("click", startGame);
     elements.previewBtn.addEventListener("click", previewBoard);
     elements.zoomCloseBtn.addEventListener("click", closeZoom);
+    elements.levelSelect.addEventListener("change", handleLevelChange);
     elements.categorySelect.addEventListener("change", () => {
       state.activeCategory = elements.categorySelect.value;
       updateSetupHint(Number(elements.pairCount.value), Number(elements.pairCount.value), getFilteredPool().length);
@@ -497,12 +570,10 @@
   }
 
   function init() {
+    populateLevelSelect();
     populateCategorySelect();
-    renderGuide();
-    state.players = createPlayers(Number(elements.playerCount.value));
-    render();
     bindEvents();
-    updateSetupHint(Number(elements.pairCount.value), Number(elements.pairCount.value), cardPool.length);
+    resetBoard(`${getActiveLevel().title} ist bereit. Wähle Bereich und Kartenzahl und starte eine neue Partie.`);
   }
 
   init();

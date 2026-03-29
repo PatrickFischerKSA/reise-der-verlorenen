@@ -180,7 +180,7 @@ p {
 
 .control-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -472,6 +472,19 @@ select {
   margin-bottom: 10px;
 }
 
+.detail-entry + .detail-entry {
+  margin-top: 14px;
+}
+
+.detail-label {
+  margin-bottom: 6px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sea-deep);
+}
+
 .guide-list,
 .tips-list {
   display: grid;
@@ -547,6 +560,12 @@ select {
   .setup-grid,
   .content-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 960px) {
+  .control-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

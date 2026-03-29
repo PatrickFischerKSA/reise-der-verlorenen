@@ -1,6 +1,6 @@
 # Reise der Verlorenen
 
-Volldigitalisiertes Memory-Spiel zu Figuren aus dem Kontext der *St. Louis*. Jede Partie verbindet eine Namenkarte mit der passenden, auf Stichworte gekürzten Beschreibungskarte.
+Volldigitalisiertes Memory-Spiel zu Figuren aus dem Kontext der *St. Louis* und zur Flüchtlingspolitik bis 1939. Das Projekt enthält zwei vollständige Spiellevel mit identischer Memory-Logik.
 
 Kurzbeschreibung:
 Volldigitales Memory-Spiel zu *Reise der Verlorenen* mit 30 Figurenpaaren und GitHub Pages.
@@ -14,9 +14,11 @@ Topics:
 ## Inhalt
 
 - 30 Figurenpaare
+- 30 zusätzliche Frage-Antwort-Paare zur Flüchtlingspolitik bis 1939
 - Solo- oder lokaler Mehrspielermodus mit bis zu 4 Personen
 - Filter nach Themenbereich
 - Lernblick zum kurzen Einprägen des Decks
+- Lupenfunktion für vollständige Kartentexte
 - GitHub-Pages-taugliches, statisches Frontend ohne Build-Schritt
 
 ## Projektstruktur
